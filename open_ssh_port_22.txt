@@ -1,0 +1,56 @@
+In this tutorial you will learn:
+
+How to open ssh port 22
+How to remove ssh port firewall rule
+How to check current UFW rules for allowed/denied ports
+
+==================================================================================
+Step 1 :
+* Check the status of your firewall.
+
+# ufw status verbose
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
+
+* if Status: inactive , activate ufw:
+$ sudo ufw enable
+
+Based on the above output all incomming ports are blocked by default.
+
+======================================================================================
+Step 2 :
+* Allow the SSH port 22 by using the ufw command:
+$ sudo ufw allow ssh
+
+* Alternatively, it is possible to allow only a specific IP address or network subnet to connect via SSH port 22. The bellow example will allow IP address 192.168.1.2 to connect via port 22:
+
+$ sudo ufw allow from 192.168.1.2 to any port ssh
+
+* In this example to allow an entire network subnet 192.168.0.0/24 execute:
+
+$ sudo ufw allow from 192.168.0.0/24 to any port ssh
+
+=============================================================================
+Step 3 :
+* Check all currently defined UFW firewall rules:
+
+$ sudo ufw status verbose
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    Anywhere                  
+22/tcp (v6)                ALLOW IN    Anywhere (v6)
+
+================================================================
+Step 4 :
+* To delete your SSH defined rules simply execute the same commands you used to allow SSH port 22 and specify the delete option right after the ufw command. Examples:
+
+$ sudo ufw delete allow ssh
+$ sudo ufw delete allow from 192.168.1.2 to any port ssh
+$ sudo ufw delete allow from 192.168.0.0/24 to any port ssh
