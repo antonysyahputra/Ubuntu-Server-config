@@ -1,0 +1,6 @@
+Error message : Username is not in the sudoers file. This incident will be reported in Linux
+
+* check currently username :
+$ who
+
+

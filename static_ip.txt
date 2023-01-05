@@ -1,0 +1,23 @@
+Configure Static IP address on Server
+In this example we will set a static IP address on the Ubuntu 22.04 server to 192.168.1.202/24 with default gateway to 192.168.1.1 and DNS servers 8.8.8.8, 8.8.4.4, 
+and 192.168.1.1.
+
+Locate and edit with administrative privileges the /etc/netplan/01-network-manager-all.yaml file with the following configuration. Update your desired static IP address, DNS server and gateway where appropriate:
+# This file is generated from information provided by
+# the datasource.  Changes to it will not persist across an instance.
+# To disable cloud-init's network configuration capabilities, write a file
+# /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
+# network: {config: disabled}
+
+network:
+    ethernets:
+        enp0s3:
+            dhcp4: false
+            addresses: [192.168.1.202/24]
+            gateway4: 192.168.1.1
+            nameservers:
+              addresses: [8.8.8.8,8.8.4.4,192.168.1.1]
+    version: 2
+
+    
+Save and exit the file when done.
